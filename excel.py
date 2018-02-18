@@ -39,7 +39,3 @@ class Excel:
 
     def write_image(self, x, y, value):
         self.worksheet.insert_image(x, y, value)
-
-    def empty_line(self):
-        self.resize_row(self.active_row, 33)
-        self.add_row()

@@ -6,12 +6,13 @@ import win32con
 
 from Dico import VK_CODE, press, pressAndHold, release
 from clipboard import get_clipboard
+from coord import Coord
 
 
 class MouseEvent:
 
     def mousePos(self, cord):
-        win32api.SetCursorPos((cord[0], cord[1]))
+        win32api.SetCursorPos(Coord.process_res((cord[0], cord[1])))
 
     def leftClick(self):
         win32api.mouse_event(win32con.MOUSEEVENTF_LEFTDOWN, 0, 0)
@@ -41,6 +42,11 @@ class MouseEvent:
         press("c")
         release("ctrl")
 
+    def couper(self):
+        pressAndHold("ctrl")
+        press("x")
+        release("ctrl")
+
     def coller(self):
         pressAndHold("ctrl")
         press("v")
@@ -61,6 +67,5 @@ class MouseEvent:
         self.mousePos((267, 220))
         self.shift_click()
         self.select_all()
-        self.copier()
-        self.delete()
+        self.couper()
         return get_clipboard()[1:-2]

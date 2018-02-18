@@ -5,15 +5,18 @@ import time
 import win32gui
 
 import psutil
-import subprocess as sp
 
 import win32process
-from PIL import ImageGrab
 
+import sys
+from PIL import ImageGrab, Image
+
+import pytesseract
 from clipboard import get_clipboard, set_clipboard
 from coord import Coord
 from excel import Excel
 from mouseEvent import MouseEvent
+from pytesseract import image_to_string
 from rune import Rune
 from windowMgr import WindowMgr
 
@@ -59,7 +62,8 @@ recherche_word = [
 recherche_word2 = [
     "Rune Age",
     "Rune Cha",
-    "Rune Fo"
+    "Rune Fo",
+    "Rune Ga Pa"
 ]
 
 def recherche(nom):
@@ -83,7 +87,7 @@ def recherche(nom):
     time.sleep(.1)
 
 def screenMe(nom):
-    box = Coord.loc_prix
+    box = Coord.get_loc_prix()
     im = ImageGrab.grab(box)
     nom = os.getcwd() + '\\' + nom.replace(" ", "_")+ '.png'
     im.save(nom, 'PNG')
@@ -101,13 +105,17 @@ def put_dofus_front():
     w = win32gui
     p = w.GetWindowText(w.GetForegroundWindow())
     dofus = [item for item in psutil.process_iter() if item.name() == 'Dofus.exe']
+    print(dofus)
     pid = next(item for item in psutil.process_iter() if item.name() == 'Dofus.exe').pid
+    print(pid)
     win32gui.EnumWindows(enum_window_callback, pid)
     res = [win32gui.GetWindowText(item) for item in windows]
+    print(res)
     name = res[0]
     we = WindowMgr()
     we.find_window_wildcard(".*"+name+".*")
     we.set_foreground()
+    return 0
 
 def start_retrieval(values):
     me = MouseEvent()
@@ -123,6 +131,7 @@ runes = []
 def encapsulate_rune(values):
     for value in values:
         rune = Rune(value)
+        rune.resize_png()
         runes.append(rune)
 
 def generate_excel():
@@ -131,24 +140,49 @@ def generate_excel():
     excel.resize_column('B:B', 15)
     excel.resize_column('C:C', 17)
     excel.resize_column('D:D', 18)
+    i = 1
     for rune in runes:
+        print(str(i) + " / " + str(len(runes)))
         excel.write(excel.active_row, excel.active_column, rune.name)
         excel.write_image(excel.active_row, excel.next_column(), rune.get_png())
-        excel.empty_line()
+        excel.resize_row(excel.active_row, 170)
         excel.add_row()
+        price = ocr_image(rune.get_png())
+        excel.write(excel.active_row, excel.next_column(), price)
+        excel.add_row()
+        i+=1
 
 def delete_png():
     for rune in runes:
         rune.delete_png()
 
+def ocr_image(image_location):
+    location = "C:\\Program Files (x86)\\Tesseract-OCR\\tesseract.exe"
+    pytesseract.tesseract_cmd = location
+    image_file = image_location
+
+    im = Image.open(image_file)
+    text = "0"
+    try:
+        text = image_to_string(im)
+    except IOError:
+        sys.stderr.write('ERROR: Could not open file "%s"\n' % image_file)
+        exit(1)
+    text = text.replace(" ", "")
+    text = text.replace("K", "")
+    text = text.replace("R", "")
+    return int(text)
+
 
 def main():
-    put_dofus_front()
-    start_retrieval(recherche_word)
+    #put_dofus_front()
+    #start_retrieval(recherche_word)
     encapsulate_rune(recherche_word)
     generate_excel()
-    delete_png()
+    #delete_png()
 
 
 if __name__ == '__main__':
+    start_time = time.time()
     main()
+    print("--- %s seconds ---" % (time.time() - start_time))
