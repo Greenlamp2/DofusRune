@@ -1,23 +1,15 @@
-import os
-
-import time
 import xlsxwriter
-from PIL import ImageGrab
 
-
-def screenMe():
-    box = (700, 400, 1090, 440)
-    im = ImageGrab.grab(box)
-    nom = os.getcwd() + '\\full_snap__' + str(int(time.time())) + '.png'
-    im.save(nom, 'PNG')
-    return nom
+from coord import Coord
 
 class Excel:
-    def __init__(self, name="defaut"):
+    def __init__(self, items, name="defaut"):
+        print(name)
         self.workbook = xlsxwriter.Workbook(name + ".xlsx")
         self.worksheet = self.workbook.add_worksheet()
         self.active_column = 0
         self.active_row = 0
+        self.generate_item_excel(items)
 
     def next_column(self):
         return self.active_column + 1
@@ -39,3 +31,19 @@ class Excel:
 
     def write_image(self, x, y, value):
         self.worksheet.insert_image(x, y, value)
+
+    def generate_item_excel(self, items):
+        self.resize_column('A:A', 15)
+        self.resize_column('B:B', 15)
+        self.resize_column('C:C', 17)
+        self.resize_column('D:D', 18)
+        i = 1
+        for rune in items:
+            print(str(i) + " / " + str(len(items)))
+            self.write(self.active_row, self.active_column, rune.name)
+            self.write_image(self.active_row, self.next_column(), rune.get_png())
+            self.resize_row(self.active_row, Coord.size_row)
+            self.add_row()
+            self.write(self.active_row, self.next_column(), rune.price)
+            self.add_row()
+            i+=1
