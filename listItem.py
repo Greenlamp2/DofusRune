@@ -1,4 +1,15 @@
+import sys
+
+# coding: utf8
+
 class ListItem:
+    def get_list(name):
+        file_name = name + ".txt"
+        with open(file_name) as f:
+            content = f.readlines()
+        content = [x.strip().encode("latin-1").decode("UTF-8") for x in content]
+        return content
+
     runes = [
         "Rune Age",
         "Rune Cha",

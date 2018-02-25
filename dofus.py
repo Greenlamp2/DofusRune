@@ -1,11 +1,9 @@
-import time
-
 import sys
+import time
 
 from excel import Excel
 from item import Item
 from listItem import ListItem
-from ocrManager import OcrManager
 from rechercheProcess import RechercheProcess
 from screenManager import ScreenManager
 
@@ -15,12 +13,10 @@ def delete_png(items):
 
 
 def get_list_by_type(item_type):
-    if item_type == "run":
-        return ListItem.runes
-    elif item_type == "res":
-        return ListItem.ressources
-    else:
-        return ListItem.test
+    liste =  ListItem.get_list(item_type)
+    if liste == None or liste == []:
+        liste = ListItem.test
+    return liste
 
 
 def main():
@@ -33,7 +29,9 @@ def main():
         count = int(sys.argv[2])
 
     type = get_list_by_type(item_type)
+    execution(type, count, item_type)
 
+def execution(type, count, item_type):
     sm = ScreenManager()
     rp = RechercheProcess()
     r = Item()
