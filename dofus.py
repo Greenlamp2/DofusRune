@@ -20,7 +20,7 @@ def get_list_by_type(item_type):
 
 
 def main():
-    item_type = "test"
+    item_type = "run"
     count = 100
     if len(sys.argv) == 2:
         item_type = sys.argv[1]
@@ -36,7 +36,7 @@ def execution(type, count, item_type):
     rp = RechercheProcess()
     r = Item()
 
-    sm.set_focus_by_window_name("new 1")
+    sm.set_focus_by_window_name("Greenlamp")
     rp.search_multiple_item(type, count)
 
     items = r.generate_item_list(type)

@@ -11,6 +11,7 @@ class RechercheProcess:
         self.me = MouseEvent()
         self.sm = ScreenshotManager()
 
+
     def search_single_item(self, name, count):
         time.sleep(.1)
         self.me.mousePos(Coord.loc_cancel)
@@ -24,9 +25,9 @@ class RechercheProcess:
         set_clipboard(name)
         time.sleep(.1)
         self.me.coller()
-        time.sleep(.5)
+        time.sleep(1)
         self.me.mousePos(Coord.loc_resultat)
-        time.sleep(.1)
+        time.sleep(.3)
         self.me.leftClick()
         time.sleep(.5)
         self.sm.screen_this(name, count)

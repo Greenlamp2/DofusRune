@@ -2,14 +2,17 @@ import xlsxwriter
 
 from coord import Coord
 
+
 class Excel:
     def __init__(self, items, name="defaut"):
-        print(name)
-        self.workbook = xlsxwriter.Workbook(name + ".xlsx")
+        full_name = name + ".xlsx"
+        print(full_name)
+        self.workbook = xlsxwriter.Workbook(full_name)
         self.worksheet = self.workbook.add_worksheet()
         self.active_column = 0
         self.active_row = 0
         self.generate_item_excel(items)
+        self.workbook.close()
 
     def next_column(self):
         return self.active_column + 1

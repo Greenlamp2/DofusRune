@@ -1,11 +1,11 @@
 class Coord:
-    loc_recherche_box = (570, 800)
-    loc_resultat = (570, 215)
+    loc_recherche_box = (430, 202)
+    loc_resultat = (700, 225)
     loc_prix = (700, 400, 1090, 440)
-    new_loc_prix = (950, 400, 1090, 440)
-    loc_prix_unit = (700, 400, 840, 440)
+    new_loc_prix = (930, 352, 1027, 376)
+    loc_prix_unit = (930, 262, 1027, 286)
     #loc_prix = (655, 281, 1090, 440)
-    loc_cancel = (606, 801)
+    loc_cancel = (572, 201)
     #256 -> 57
     #512 -> 110
     #256 -> 55
@@ -38,7 +38,7 @@ class Coord:
         return res
 
     def process_res(value):
-        pc  = (1680, 1050)
+        pc  = (1920, 1080)
         portable = (1440, 900)
         resolution = pc
 
