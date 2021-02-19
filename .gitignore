@@ -123,4 +123,3 @@ webpack-stats.dev.json
 webpack-stats.prod.json
 /frontend/bundles/*
 /assets/*
-*.idea/
