@@ -1,0 +1,4 @@
+xlsxwriter
+Pillow
+pywin32
+psutil

@@ -13,11 +13,12 @@ class Item:
         self.om = OcrManager()
 
     def get_png(self):
-        return self.name.replace(" ", "_")+ '.png'
+        name_edited = os.getcwd() + '\\' + 'screenshots' + '\\' + self.name.replace(" ", "_")+ '.png'
+        return name_edited
 
     def delete_png(self):
         name =  self.name.replace(" ", "_")
-        location = os.getcwd() + '\\' + name + '.png'
+        location = os.getcwd() + '\\' + 'screenshots' + '\\' + self.name.replace(" ", "_")+ '.png'
         os.remove(location)
 
     def resize_png(self):

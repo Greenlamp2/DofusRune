@@ -36,7 +36,7 @@ def execution(type, count, item_type):
     rp = RechercheProcess()
     r = Item()
 
-    sm.set_focus_by_window_name("Greenlamp-Arrow")
+    sm.set_focus_by_window_name("new 1")
     rp.search_multiple_item(type, count)
 
     items = r.generate_item_list(type)

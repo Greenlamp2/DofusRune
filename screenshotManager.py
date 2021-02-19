@@ -12,6 +12,6 @@ class ScreenshotManager:
     def screen_this(self, name, count):
         box = Coord.get_loc_prix(count)
         im = ImageGrab.grab(box)
-        name_edited = os.getcwd() + '\\' + name.replace(" ", "_")+ '.png'
+        name_edited = os.getcwd() + '\\' + 'screenshots' + '\\' + name.replace(" ", "_")+ '.png'
         im.save(name_edited, 'PNG')
         return name_edited
