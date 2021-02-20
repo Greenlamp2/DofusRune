@@ -4,6 +4,7 @@ from PIL import Image
 
 from coord import Coord
 from ocrManager import OcrManager
+import pickle
 
 
 class Item:
@@ -42,6 +43,10 @@ class Item:
     def get_ocr_price(self):
         self.price = self.om.ocr_image(self.get_png())
         return self.price
+
+    def save(self, items):
+        with open("items.pkl", "wb") as f:
+            pickle.dump(items, f)
 
 
 

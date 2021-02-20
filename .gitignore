@@ -123,3 +123,7 @@ webpack-stats.dev.json
 webpack-stats.prod.json
 /frontend/bundles/*
 /assets/*
+/items.pkl
+/screenshots/
+/~$façonneur.xlsx
+/~$run.xlsx

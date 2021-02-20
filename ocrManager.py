@@ -38,11 +38,16 @@ class OcrManager:
         except IOError:
             sys.stderr.write('ERROR: Could not open file "%s"\n' % image_file)
             exit(1)
+        text = self.dofus_treatment(text)
         print(text)
-        return self.dofus_treatment(text)
+        return text
 
     def dofus_treatment(self, text):
         text = text.replace(" ", "")
         text = text.replace("K", "")
         text = text.replace("R", "")
+        try:
+            int(text)
+        except:
+            return "-1"
         return text

@@ -36,13 +36,14 @@ def execution(type, count, item_type):
     rp = RechercheProcess()
     r = Item()
 
-    sm.set_focus_by_window_name("Greenlamp")
-    rp.search_multiple_item(type, count)
+    # sm.set_focus_by_window_name("Zazone")
+    # rp.search_multiple_item(type, count)
 
     items = r.generate_item_list(type)
-    Excel(items, item_type)
+    r.save(items)
+    # Excel(items, item_type)
 
-    delete_png(items)
+    # delete_png(items)
 
 
 if __name__ == '__main__':
