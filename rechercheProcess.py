@@ -15,7 +15,7 @@ class RechercheProcess:
     def search_single_item(self, name, count):
         time.sleep(.1)
         self.me.mousePos(Coord.loc_cancel)
-        time.sleep(.1)
+        time.sleep(.3)
         self.me.leftClick()
         time.sleep(.1)
         self.me.mousePos(Coord.loc_recherche_box)
@@ -27,10 +27,11 @@ class RechercheProcess:
         self.me.coller()
         time.sleep(1)
         self.me.mousePos(Coord.loc_resultat)
-        time.sleep(.3)
+        time.sleep(.5)
         self.me.leftClick()
         time.sleep(.5)
         self.sm.screen_this(name, count)
+        time.sleep(.3)
 
 
     def search_multiple_item(self, names, count):
